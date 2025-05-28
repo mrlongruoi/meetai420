@@ -75,7 +75,7 @@ export const SignUpView = () => {
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="p-6 md:p-8">
                 <div className="flex flex-col gap-6">
-                    <div className="flex flex-col items-cener text-center">
+                    <div className="flex flex-col items-center text-center">
                     <h1 className="text-2xl font-bold">
                         Let&apos;s get you started
                         </h1>
@@ -201,7 +201,7 @@ export const SignUpView = () => {
 
             <div className="bg-radial from-green-700 to-green-900 relative hidden md:flex flex-col gap-y-4 items-center justify-center">
                 <img src="/logo.svg" alt="Image" className="h-[92px] w-[92px]" />
-                <p className="text=2xl font-semibold text-white">Meet.AI</p>
+                <p className="text-2xl font-semibold text-white">Meet.AI</p>
             </div>
             </CardContent>
         </Card>
