@@ -66,8 +66,8 @@ export const CallConnect = ({
       if (_call.state.callingState !== CallingState.LEFT) {
         _call.leave();
         _call.endCall();
+        setCall(undefined);
       }
-      setCall(undefined);
     };
   }, [client, meetingId]);
 

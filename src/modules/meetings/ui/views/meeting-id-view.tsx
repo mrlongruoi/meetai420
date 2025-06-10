@@ -75,9 +75,9 @@ const isProcessing = data.status === "processing";
         {isCompleted && <CompletedState data={data}/>}
         {isActive && <ActiveState meetingId={meetingId} />}
         {isUpcoming && (<UpcomingState
-        meetingId={meetingId}
-        onCancelMeeting={()=>{}}
-        isCanceling={false}
+          meetingId={meetingId}
+          onCancelMeeting={()=>{}}
+          isCanceling={false}
         />)}
       </div>
     </>
