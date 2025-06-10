@@ -15,7 +15,7 @@ interface Props {
 
 export const Transcript = ({ meetingId }: Props) => {
   const trpc = useTRPC();
-  const { data } = useQuery(trpc.meetings.getTransrcipt.queryOptions({ id: meetingId }));
+  const { data } = useQuery(trpc.meetings.getTranscript.queryOptions({ id: meetingId }));
   const [searchQuery, setSearchQuery] = useState("");
   const filteredData = (data ?? []).filter((item) =>
     item.text.toString().toLowerCase().includes(searchQuery.toLowerCase())
@@ -57,7 +57,7 @@ export const Transcript = ({ meetingId }: Props) => {
                             </div>
                             <Highlighter
                             className="text-sm text-neutral-700"
-                            hightlightClassName="bg-yellow-200"
+                            highlightClassName="bg-yellow-200"
                             searchWords={[searchQuery]}
                             autoEscape={true}
                             textToHighlight={item.text}

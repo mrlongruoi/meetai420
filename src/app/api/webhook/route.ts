@@ -177,7 +177,7 @@ export async function POST(req: NextRequest) {
     const text = event.message?.text;
     if (!userId || !channelId || !text) {
       return NextResponse.json(
-        { error: "Missing reqired fields" },
+        { error: "Missing required fields" },
         { status: 400 }
       );
     }

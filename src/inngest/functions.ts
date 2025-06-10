@@ -92,7 +92,7 @@ export const meetingsProcessing = inngest.createFunction(
     });
 
     const { output } = await summarizer.run(
-      "Summarize the fllowing transcript: " +
+      "Summarize the following transcript: " +
         JSON.stringify(transcriptWithSpeakers)
     );
     await step.run("save-summary", async () => {
