@@ -17,31 +17,27 @@ interface Props {
   onJoin: () => void;
 }
 
-export const CallLobby = ({ onJoin }: Props) => {
-  const { useCameraState, useMicrophoneState } = useCallStateHooks();
-  const { hasBrowserPermission: hasMicPermission } = useMicrophoneState();
-  const { hasBrowserPermission: hasCameraPermission } = useCameraState();
-  const hasBrowserMediaPermission = hasCameraPermission && hasMicPermission;
-  const DisabledVideoPreview = () => {
-    const { data } = authClient.useSession();
+const DisabledVideoPreview = () => {
+  const { data } = authClient.useSession();
 
-    return (
-      <DefaultVideoPlaceholder
-        participant={
-          {
-            name: data?.user.name ?? "",
-            image:
-              data?.user.image ??
-              generateAvatarUri({
-                seed: data?.user.name ?? "",
-                variant: "initials",
-              }),
-          } as StreamVideoParticipant
-        }
-      />
-    );
-  };
-  const AllowBrowserPermissions = () => {
+  return (
+    <DefaultVideoPlaceholder
+      participant={
+        {
+          name: data?.user.name ?? "",
+          image:
+            data?.user.image ??
+            generateAvatarUri({
+              seed: data?.user.name ?? "",
+              variant: "initials",
+            }),
+        } as StreamVideoParticipant
+      }
+    />
+  );
+};
+
+const AllowBrowserPermissions = () => {
     return (
       <p className="text-sm">
         Please grant your browser a permission to access your camera and
@@ -49,6 +45,13 @@ export const CallLobby = ({ onJoin }: Props) => {
       </p>
     );
   };
+
+export const CallLobby = ({ onJoin }: Props) => {
+  const { useCameraState, useMicrophoneState } = useCallStateHooks();
+  const { hasBrowserPermission: hasMicPermission } = useMicrophoneState();
+  const { hasBrowserPermission: hasCameraPermission } = useCameraState();
+  const hasBrowserMediaPermission = hasCameraPermission && hasMicPermission;
+  
   return (
     <div className="flex flex-col items-center justify-center h-full bg-radial from-sidebar-accent to-sidebar">
       <div className="py-4 px-8 flex flex-1 items-center justify-center">
