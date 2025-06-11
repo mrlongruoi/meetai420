@@ -16,10 +16,11 @@ import {
 } from "@/components/ui/form";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
-import {authClient} from "@/lib/auth-client"
+import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {FaGithub, FaGoogle} from "react-icons/fa";
+import { FaGithub, FaGoogle } from "react-icons/fa";
+import Image from "next/image";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -29,8 +30,8 @@ const formSchema = z.object({
 export const SignInView = () => {
   const router = useRouter();
 
-    const [pending, setPending] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -43,43 +44,44 @@ export const SignInView = () => {
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     setError(null);
     setPending(true);
-        authClient.signIn.email({
+    authClient.signIn.email(
+      {
         email: data.email,
         password: data.password,
         callbackURL: "/",
-    },
-    {
-        onSuccess:()=>{
-            setPending(false)
-            router.push("/");
+      },
+      {
+        onSuccess: () => {
+          setPending(false);
+          router.push("/");
         },
-        onError: ({error}) => {
-            setPending(false)            
-            setError(error.message);
+        onError: ({ error }) => {
+          setPending(false);
+          setError(error.message);
         },
-    }
-    )
-  }
+      }
+    );
+  };
 
   const onSocial = (provider: "github" | "google") => {
-      setError(null);
-      setPending(true);
-      authClient.signIn.social(
-        {
-          provider: provider,
-          callbackURL: '/',
+    setError(null);
+    setPending(true);
+    authClient.signIn.social(
+      {
+        provider: provider,
+        callbackURL: "/",
+      },
+      {
+        onSuccess: () => {
+          setPending(false);
         },
-        {
-          onSuccess: () => {
-            setPending(false);
-          },
-          onError: ({ error }) => {
-            setPending(false);
-            setError(error.message);
-          },
-        }
-      );
-    };
+        onError: ({ error }) => {
+          setPending(false);
+          setError(error.message);
+        },
+      }
+    );
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -147,21 +149,23 @@ export const SignInView = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <Button 
-                  disabled={pending} 
-                  onClick={() => onSocial("google")}
-                  variant="outline" 
-                  type="button" 
-                  className="w-full">
-                    <FaGoogle/>
+                  <Button
+                    disabled={pending}
+                    onClick={() => onSocial("google")}
+                    variant="outline"
+                    type="button"
+                    className="w-full"
+                  >
+                    <FaGoogle />
                   </Button>
-                  <Button 
-                  disabled={pending} 
-                  onClick={() => onSocial("github")}
-                  variant="outline" 
-                  type="button" 
-                  className="w-full">
-                    <FaGithub/>
+                  <Button
+                    disabled={pending}
+                    onClick={() => onSocial("github")}
+                    variant="outline"
+                    type="button"
+                    className="w-full"
+                  >
+                    <FaGithub />
                   </Button>
                 </div>
                 <div className="text-center text-sm">
@@ -178,14 +182,20 @@ export const SignInView = () => {
           </Form>
 
           <div className="bg-radial from-sidebar-accent to-sidebar relative hidden md:flex flex-col gap-y-4 items-center justify-center">
-            <img src="/logo.svg" alt="Image" className="h-[92px] w-[92px]" />
+            <Image
+              src="/logo.svg"
+              alt="Image"
+              width={92}
+              height={92}
+              className="h-[92px] w-[92px]"
+            />
             <p className="text-2xl font-semibold text-white">Meet.AI</p>
           </div>
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Term of Service</a>{" "}
-        and <a href="#"> Privacy Policy</a>
+        By clicking continue, you agree to our{" "}
+        <a href="#">Term of Service</a> and <a href="#"> Privacy Policy</a>
       </div>
     </div>
   );

@@ -75,11 +75,11 @@ const isProcessing = data.status === "processing";
         {isProcessing && <ProcessingState/>}
         {isCompleted && <CompletedState data={data}/>}
         {isActive && <ActiveState meetingId={meetingId} />}
-        {isUpcoming && (<UpcomingState
+        {isUpcoming && (
+          <UpcomingState
           meetingId={meetingId}
-          onCancelMeeting={()=>{}}
-          isCanceling={false}
-        />)}
+        />
+        )}
       </div>
     </>
   );
