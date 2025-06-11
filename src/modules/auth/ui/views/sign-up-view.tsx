@@ -19,7 +19,8 @@ import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {FaGithub, FaGoogle} from "react-icons/fa";
+import { FaGithub, FaGoogle } from "react-icons/fa";
+import Image from "next/image";
 
 const formSchema = z
   .object({
@@ -209,7 +210,7 @@ export const SignUpView = () => {
                     type="button"
                     className="w-full"
                   >
-                    <FaGoogle/>
+                    <FaGoogle />
                   </Button>
                   <Button
                     disabled={pending}
@@ -218,7 +219,7 @@ export const SignUpView = () => {
                     type="button"
                     className="w-full"
                   >
-                    <FaGithub/>
+                    <FaGithub />
                   </Button>
                 </div>
                 <div className="text-center text-sm">
@@ -235,14 +236,20 @@ export const SignUpView = () => {
           </Form>
 
           <div className="bg-radial from-sidebar-accent to-sidebar relative hidden md:flex flex-col gap-y-4 items-center justify-center">
-            <img src="/logo.svg" alt="Image" className="h-[92px] w-[92px]" />
+            <Image
+              src="/logo.svg"
+              alt="Image"
+              width={92}
+              height={92}
+              className="h-[92px] w-[92px]"
+            />
             <p className="text-2xl font-semibold text-white">Meet.AI</p>
           </div>
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our <a href="#">Term of Service</a>{" "}
-        and <a href="#"> Privacy Policy</a>
+        By clicking continue, you agree to our{" "}
+        <a href="#">Term of Service</a> and <a href="#"> Privacy Policy</a>
       </div>
     </div>
   );
